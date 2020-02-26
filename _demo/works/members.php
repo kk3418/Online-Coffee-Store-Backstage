@@ -18,7 +18,7 @@ if (isset($_POST["logout"])) {
 
 //connect to SQL
 header("content-type:text/html; charset=utf-8");
-$link = @mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
+$link = @mysqli_connect("localhost", "root", "root") or die(mysqli_connect_error());
 $result = mysqli_query($link, "set names utf8");
 mysqli_select_db($link, "coffee");
 
@@ -143,6 +143,6 @@ if (isset($_POST["deleteSelected"])) {
 
 </div>
 <!-- End your code here. -->
-<?php include '../parts/footer.php';?>
+<!-- <?php include '../parts/footer.php';?> -->
 
 </body>
