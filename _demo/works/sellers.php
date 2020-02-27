@@ -27,10 +27,10 @@ foreach ($_POST as $i => $j) {
     if (substr($i, 0, 6) == "delete") {
         $deleteItem = ltrim($i, "delete");
         $deleteCommandText = <<<SqlQuery
-        DELETE FROM coffee.customers WHERE customerID IN ('$deleteItem')
+        DELETE FROM coffee.sellers WHERE sellerID IN ('$deleteItem')
         SqlQuery;
         mysqli_query($link, $deleteCommandText);
-        header('location:' . $_SERVER['REQUEST_URI'] . '');
+        header('location: sellers.php');
     }
 }
 
@@ -46,7 +46,7 @@ if (isset($_POST["deleteSelected"])) {
     }
     $selectedList = ltrim($selectedList, "!,");
     $deleteSelectedCommandText = <<<SqlQuery
-  DELETE FROM coffee.customers WHERE customerID IN ($selectedList)
+  DELETE FROM coffee.sellers WHERE sellerID IN ($selectedList)
   SqlQuery;
     mysqli_query($link, $deleteSelectedCommandText);
     header('location:' . $_SERVER['REQUEST_URI'] . '');
@@ -94,24 +94,21 @@ if (isset($_POST["deleteSelected"])) {
             <thead class="thead-light">
                 <tr>
                     <th>check</th>
-                    <th>customerID</th>
-                    <th>cName</th>
-                    <th>cAccount</th>
-                    <th>cSex</th>
-                    <th>cBirthDate</th>
-                    <th>cAddress</th>
-                    <th>cMobile</th>
+                    <th>sellerID</th>
+                    <th>sName</th>
+                    <th>sAccount</th>
+                    <th>sPassword</th>
+                    <th>sAddress</th>
+                    <th>sPhone</th>
                     <th></th>
                 </tr>
             </thead>
-
             <tbody>
-
                 <?php
     // write table
     $commandText = <<<SqlQuery
-        select customerID, cName, cAccount, cSex, cBirthDate, cAddress, cMobile
-        from coffee.customers
+        select sellerID, sName, sAccount, sPassword, sAddress, sPhone
+        from coffee.sellers
         SqlQuery;
     
     $result = mysqli_query($link, $commandText);
@@ -120,18 +117,17 @@ if (isset($_POST["deleteSelected"])) {
                 <tr>
                     <!-- <label class="form-check-label"> -->
                         <td>
-                            <input type="checkbox" name="<?php echo "selected" . $row["customerID"] ?>"
+                            <input type="checkbox" name="<?php echo "selected" . $row["sellerID"] ?>"
                                 class="btn btn-danger mb-3">
                         </td>
-                        <td><?php echo $row["customerID"] ?></td>
-                        <td><?php echo $row["cName"] ?></td>
-                        <td><?php echo $row["cAccount"] ?></td>
-                        <td><?php echo $row["cSex"] ?></td>
-                        <td><?php echo $row["cBirthDate"] ?></td>
-                        <td><?php echo $row["cAddress"] ?></td>
-                        <td><?php echo $row["cMobile"] ?></td>
+                        <td><?php echo $row["sellerID"] ?></td>
+                        <td><?php echo $row["sName"] ?></td>
+                        <td><?php echo $row["sAccount"] ?></td>
+                        <td><?php echo $row["sPassword"] ?></td>
+                        <td><?php echo $row["sAddress"] ?></td>
+                        <td><?php echo $row["sPhone"] ?></td>
                         <td>
-                            <input type="submit" value="刪除" name="<?php echo "delete" . $row["customerID"] ?>"
+                            <input type="submit" value="刪除" name="<?php echo "delete" . $row["sellerID"] ?>"
                                 class="btn btn-danger mb-3" onclick="return confirm('你確定要刪除這筆資料嗎？')">
                             <input type="submit" value="編輯" class="btn btn-primary mb-3">
                 </tr>
