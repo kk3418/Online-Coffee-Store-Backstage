@@ -51,7 +51,14 @@ if (isset($_POST["deleteSelected"])) {
     mysqli_query($link, $deleteSelectedCommandText);
     header('location:' . $_SERVER['REQUEST_URI'] . '');
 }
-
+// insert new data
+if (isset($_POST["testsubmit"])){
+    $insertData = $_POST["insert"];
+    $insertCommandText = <<<SqlQuery
+    INSERT INTO coffee.sellers VALUES ('$insertData','11','22','33','44','55')
+    SqlQuery;
+    mysqli_query($link, $insertCommandText);
+}
 ?>
 <!DOCTYPE html>
 <title>管理後台</title>
@@ -149,7 +156,10 @@ if (isset($_POST["deleteSelected"])) {
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <form method="POST" action="">
+            <input type="text" name="insert" />
+            <input type="submit" name="testsubmit" />
+        <form> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
